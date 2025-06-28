@@ -4,6 +4,8 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
 
+is_admin = Column(Boolean, default=False)
+
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
