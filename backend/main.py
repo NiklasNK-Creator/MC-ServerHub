@@ -3,9 +3,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from init_admin import create_admin
 import auth, servers, admin
+from database import create_tables
 
-# Admin-Account automatisch anlegen
+create_tables()
 create_admin()
+
 
 app = FastAPI(title="Minecraft Serverlist API")
 
