@@ -1,15 +1,17 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.routers import auth, servers, admin
 from init_admin import create_admin
+import auth, servers, admin
+
+# Admin-Account automatisch anlegen
 create_admin()
 
 app = FastAPI(title="Minecraft Serverlist API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://your-deployed-site.com"],
+    allow_origins=["*"],  # Im Deployment z. B. mit deiner React-Domain ersetzen
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
