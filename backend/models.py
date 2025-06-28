@@ -1,10 +1,7 @@
-
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from database import Base
-
-is_admin = Column(Boolean, default=False)
 
 class User(Base):
     __tablename__ = "users"
@@ -34,4 +31,4 @@ class Vote(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     server_id = Column(Integer, ForeignKey("servers.id"))
-    vote_type = Column(String)  # 'like' or 'dislike'
+    vote_type = Column(String)  # 'like' oder 'dislike'
