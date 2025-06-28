@@ -5,6 +5,7 @@ from routers import auth, servers, admin
 from init_admin import create_admin
 create_admin()
 
+app = FastAPI()
 
 app = FastAPI(title="Minecraft Serverlist API")
 
