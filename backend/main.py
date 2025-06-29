@@ -1,19 +1,20 @@
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from init_admin import create_admin
-import auth, servers, admin
 from database import create_tables
+import auth, servers, admin  # Deine Router
 
+# ⚠️ ZUERST die Tabellen erstellen
 create_tables()
-create_admin()
 
+# ⚠️ DANACH den Admin erstellen
+from init_admin import create_admin
+create_admin()
 
 app = FastAPI(title="Minecraft Serverlist API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Im Deployment z. B. mit deiner React-Domain ersetzen
+    allow_origins=["*"],  # bei Bedarf anpassen
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
