@@ -1,11 +1,19 @@
-from fastapi import Depends, HTTPException
-from models import User
+from fastapi import APIRouter, HTTPException
+from sqlalchemy.orm import Session
+from database import SessionLocal
+from models import Server
 
-def admin_required(user: User):
-    if not user.is_admin:
-        raise HTTPException(status_code=403, detail="Adminrechte erforderlich")
-    return user
+router = APIRouter()
 
+# Server löschen
 @router.delete("/server/{server_id}")
-def delete_server(server_id: int, user: User = Depends(admin_required), db: Session = Depends(get_db)):
-    ...
+def delete_server(server_id: int):
+    db: Session = SessionLocal()
+    server = db.query(Server).filter(Server.id == server_id).first()
+
+    if not server:
+        raise HTTPException(status_code=404, detail="Server nicht gefunden")
+
+    db.delete(server)
+    db.commit()
+    return {"message": "Server gelöscht"}
